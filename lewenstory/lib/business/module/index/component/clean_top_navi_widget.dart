@@ -1,30 +1,30 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:lewenstory/Base/Service/sk_color_utils.dart';
 import 'package:lewenstory/Base/Service/sk_screen_utils.dart';
 import 'package:lewenstory/Base/category/sk_number_ext.dart';
-import 'package:lewenstory/business/module/index/IndexPage.dart';
 
 class HomeNavigationBarView extends StatelessWidget {
-  const HomeNavigationBarView({super.key});
-
+  HomeNavigationBarView({super.key});
+  double navigationBarHeight = 44;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Container(
       color: SKColor.clear,
       width: SKScreenUtils.getInstance().screenWidth,
-      height: 44,
+      height: navigationBarHeight,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Container(
+          SizedBox(
             width: SKScreenUtils.getInstance().screenWidth,
-            height: 44,
+            height: navigationBarHeight,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  // color: Colors.pink,
                   margin: const EdgeInsets.only(left: 12),
                   child: Image(
                       image: const AssetImage('images/index_mark_logo.png'),

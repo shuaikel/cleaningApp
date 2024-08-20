@@ -24,7 +24,6 @@ class CleanOneKeyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenWidth = SKScreenUtils.getInstance().screenWidth;
-    SkLogUtils.logMessage('memoryUsePart123: $memoryUsePart');
     return Container(
       padding: EdgeInsets.only(left: 12.pt, right: 6.pt),
       width: screenWidth,

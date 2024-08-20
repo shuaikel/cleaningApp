@@ -105,8 +105,7 @@ class _IndexPage extends State<IndexPage> {
               width: sw,
               height: 383.pt),
           // 导航栏
-
-          const HomeNavigationBarView(),
+          HomeNavigationBarView(),
           // cell 滑动部分
           SafeArea(
               child: Container(
@@ -144,7 +143,19 @@ class _IndexPage extends State<IndexPage> {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10.pt),
                       color: SKColor.ff296eff),
-                  child: CleanQuickWidget(),
+                  child: CleanQuickWidget(
+                    listData: [
+                      CleanAlbumM(name: '1'),
+                      CleanAlbumM(name: '2'),
+                      CleanAlbumM(name: '3'),
+                      CleanAlbumM(name: '4'),
+                      CleanAlbumM(name: '5'),
+                      CleanAlbumM(name: '6'),
+                      CleanAlbumM(name: '7'),
+                      CleanAlbumM(name: '8')
+                    ],
+                    currentSelectIndex: _currentIndex ?? 0,
+                  ),
                 ),
                 // TODO: 信息流广告
                 Container(

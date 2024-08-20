@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lewenstory/Base/Service/sk_color_utils.dart';
 import 'package:lewenstory/Base/category/sk_number_ext.dart';
-import 'package:lewenstory/business/module/cloud/CloudPage.dart';
 
 class CleanOtherWidget extends StatelessWidget {
   const CleanOtherWidget({super.key});
@@ -10,7 +9,6 @@ class CleanOtherWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final mediaQueryData = MediaQuery.of(context);
     final width = mediaQueryData.size.width;
-    final height = mediaQueryData.size.height;
 
     return Column(
       children: [
