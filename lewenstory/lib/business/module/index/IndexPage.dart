@@ -65,7 +65,7 @@ class _IndexPage extends State<IndexPage> {
       });
       //
       if (widget.currentIndex == 0) {
-        this.fetchDeiveAlbumInfo();
+        fetchDeviceAlbumInfo();
       }
     }
   }
@@ -199,17 +199,17 @@ class _IndexPage extends State<IndexPage> {
 //
 extension _IndexPageExt on _IndexPage {
   // 获取用户相册可清理数据信息
-  void fetchDeiveAlbumInfo() {
+  void fetchDeviceAlbumInfo() {
     SkLogUtils.logMessage('获取用户相册可清理数据信息');
     // 重新绘制
     setState(() {
       memoryUsePart = memoryUsePart > 30 ? 30 : 60;
       memoryFreePart = memoryFreePart > 30 ? 30 : 50;
       isShowCleanMemberGuide = !isShowCleanMemberGuide;
-      SkLogUtils.logMessage('memoryUsePart: $memoryUsePart' +
-          'isShowCleanMemberGuide: $isShowCleanMemberGuide' +
-          'memoryFreePart: ' +
-          '$memoryFreePart');
+      // SkLogUtils.logMessage('memoryUsePart: $memoryUsePart' +
+      //     'isShowCleanMemberGuide: $isShowCleanMemberGuide' +
+      //     'memoryFreePart: ' +
+      //     '$memoryFreePart');
     });
   }
 }

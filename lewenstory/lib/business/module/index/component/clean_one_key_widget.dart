@@ -5,6 +5,7 @@ import 'package:lewenstory/Base/Service/sk_log_utils.dart';
 import 'package:lewenstory/Base/Service/sk_screen_utils.dart';
 import 'package:lewenstory/Base/category/sk_number_ext.dart';
 import 'package:lewenstory/business/module/index/component/clean_arc_paint_widget.dart';
+import 'package:lewenstory/router/sk_router.dart';
 
 class CleanOneKeyWidget extends StatelessWidget {
   final String freeEnableMemory;
@@ -144,6 +145,10 @@ class CleanOneKeyWidget extends StatelessWidget {
                   child: GestureDetector(
                     onTap: () {
                       SkLogUtils.logMessage('按钮点击');
+                      SkRouter.pushWithContext(
+                          context,
+                          SKRouterPath.onekeyCleaner,
+                          {"a": "a123", "b": "b123"});
                     },
                     child: Container(
                       height: 44.pt,

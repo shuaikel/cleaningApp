@@ -7,6 +7,7 @@ import 'package:lewenstory/Base/category/sk_number_ext.dart';
 import 'package:lewenstory/Base/widget/page_base_widget.dart';
 
 class CloudPage extends PageBaseWidget {
+
   const CloudPage({super.key, required super.currentIndex});
 
   @override
