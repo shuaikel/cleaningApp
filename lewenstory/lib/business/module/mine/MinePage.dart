@@ -7,7 +7,14 @@ import 'package:lewenstory/Base/Service/sk_log_utils.dart';
 import 'package:lewenstory/Base/Service/sk_screen_utils.dart';
 import 'package:lewenstory/Base/category/sk_number_ext.dart';
 import 'package:lewenstory/Base/widget/page_base_widget.dart';
-import 'package:lewenstory/business/module/index/component/clean_quick_widget.dart';
+
+class MineSectionItemConfigM {
+  String icon;
+  String title;
+  String rightIcon;
+
+  MineSectionItemConfigM(this.icon, this.title, this.rightIcon);
+}
 
 class MinePage extends PageBaseWidget {
   const MinePage({super.key, required super.currentIndex});
@@ -20,78 +27,114 @@ class MinePage extends PageBaseWidget {
 
 class _MinePage extends State<MinePage> with TickerProviderStateMixin {
   int? _currentIndex;
-  ScrollController _scrollController = ScrollController();
-  List<CleanAlbumM> listData = [];
-  int albumCount = 0;
+
+  List<MineSectionItemConfigM> sectionList = [
+    MineSectionItemConfigM("images/mine_Section_custom_server.png", "会员专属客服",
+        "images/mine_section_arrow.png"),
+    MineSectionItemConfigM("images/mine_section_privacy.png", "用户政策",
+        "images/mine_section_arrow.png"),
+    MineSectionItemConfigM("images/mine_section_protocol.png", "用户协议",
+        "images/mine_section_arrow.png"),
+    MineSectionItemConfigM("images/mine_section_destroy.png", "用户注销",
+        "images/mine_section_arrow.png"),
+    MineSectionItemConfigM("images/mine_section_about.png", "关于我们",
+        "images/mine_section_arrow.png")
+  ];
 
   @override
   void initState() {
     super.initState();
-
-    registerScrollObserver();
   }
 
   @override
   Widget build(BuildContext context) {
     double sw = SKScreenUtils.getInstance().screenWidth;
     return Scaffold(
-      appBar: AppBar(title: Text("平移动画")),
-      body: Center(
-        child: Stack(
-          children: [
-            Container(
-              width: sw + 40.pt,
-              height: 80.pt,
-              clipBehavior: Clip.hardEdge,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8.pt),
-                color: SKColor.randomColor(),
-              ),
-              child: OverflowBox(
-                  minWidth: sw + 10.pt,
-                  minHeight: 80.pt,
-                  maxHeight: 200.pt,
-                  maxWidth: sw + 40.pt,
-                  child: Transform.rotate(
-                      angle: -pi * 0.083,
-                      // angle: 0,
-                      child: GridView.builder(
-                          itemCount: listData.length,
-                          controller: _scrollController,
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 4,
-                            crossAxisSpacing: 8.pt,
-                            mainAxisSpacing: 8.pt,
-                            childAspectRatio: 1.0,
-                          ),
-                          itemBuilder: (BuildContext context, int index) {
-                            return Padding(
-                              padding: EdgeInsets.zero,
-                              child: Container(
-                                width: 80.pt,
-                                height: 80.pt,
-                                color: SKColor.randomColor(),
-                              ),
-                            );
-                          }))),
-            ),
-            Container(
-              width: 360.pt,
-              decoration: BoxDecoration(
-                  color: SKColor.clear,
-                  borderRadius: BorderRadius.circular(10.pt)),
-              child: Image(
-                image: AssetImage('images/clean_quick_widget_ent.png'),
-                width: 360.pt,
-                height: 80.pt,
-                fit: BoxFit.cover,
-              ),
-            )
-          ],
+        body: Stack(
+      children: [
+        // 底图
+        Container(
+          width: sw.pt,
+          height: 320.pt,
+          decoration: BoxDecoration(
+              color: SKColor.clear, borderRadius: BorderRadius.circular(10.pt)),
+          child: Image(
+            image: const AssetImage('images/mine_top_bg.png'),
+            width: 360.pt,
+            height: 80.pt,
+            fit: BoxFit.cover,
+          ),
         ),
-      ),
-    );
+        SafeArea(
+            child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                margin: EdgeInsets.only(top: 27.pt),
+                padding: EdgeInsets.only(bottom: 12.pt),
+                height: (60 + 12).pt,
+                width: sw,
+                // color: SKColor.randomColor(),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                        margin: EdgeInsets.only(left: 12.pt),
+                        child: Image(
+                          image: const AssetImage(
+                              'images/mine_icon_placehold.png'),
+                          width: 60.pt,
+                          height: 60.pt,
+                        )),
+                    TextButton(
+                        onPressed: () {
+                          SkLogUtils.logMessage('点击登录');
+                        },
+                        child: Text(
+                          '点击登录',
+                          style: TextStyle(
+                              fontSize: 18.pt,
+                              fontWeight: FontWeight.bold,
+                              color: SKColor.ff000000),
+                        )),
+                  ],
+                ),
+              ),
+              
+              // 会员
+              widget.configVipWidget(),
+
+              // 广告
+              Container(
+                margin: EdgeInsets.only(top: 12.pt),
+                width: 360.pt,
+                height: 88.pt,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.pt),
+                    color: SKColor.randomColor()),
+              ),
+
+              // item
+              Container(
+                margin: EdgeInsets.only(top: 12.pt),
+                width: 360.pt,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.pt),
+                  color: SKColor.ffffffff,
+                ),
+                child: Column(
+                  children: sectionList.map((item) {
+                    return widget.configSectionItem(item);
+                  }).toList(),
+                ),
+              ),
+
+              //
+            ],
+          ),
+        ))
+      ],
+    ));
   }
 
   @override
@@ -106,65 +149,140 @@ class _MinePage extends State<MinePage> with TickerProviderStateMixin {
       return;
     }
     SkLogUtils.logMessage('mine page didUpdateWidget');
-    setState(() {
-      _currentIndex = widget.currentIndex;
-      albumCount = 14;
-      listData = [
-        CleanAlbumM(name: '1'),
-        CleanAlbumM(name: '2'),
-        CleanAlbumM(name: '3'),
-        CleanAlbumM(name: '4'),
-        CleanAlbumM(name: '5'),
-        CleanAlbumM(name: '6'),
-        CleanAlbumM(name: '7'),
-        CleanAlbumM(name: '8'),
-        CleanAlbumM(name: '9')
-      ];
-    });
-
-    Future.delayed(Duration(milliseconds: 1200), () {
-      if (_currentIndex == 2) {
-        SkLogUtils.logMessage(
-            '延迟1秒执行了: ${_scrollController.offset}====${_scrollController.position.maxScrollExtent}');
-        startAnimation();
-      }
-    });
   }
 
   @override
   void dispose() {
-    _scrollController.dispose();
     super.dispose();
   }
+}
 
-  void registerScrollObserver() {
-    _scrollController.addListener(() {
-      startAnimation();
-    });
+extension MinePageExt on MinePage {
+  // section item
+  Widget configSectionItem(MineSectionItemConfigM item) {
+    return GestureDetector(
+        onTap: () {
+          SkLogUtils.logMessage('点击: ${item.title}');
+        },
+        child: Container(
+          height: 52.pt,
+          color: SKColor.clear,
+          padding: EdgeInsets.only(left: 12.pt, right: 12.pt),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Image(
+                    image: AssetImage(item.icon),
+                    width: 28.pt,
+                    height: 28.pt,
+                  ),
+                  SizedBox(
+                    width: 8.pt,
+                  ),
+                  Text(
+                    item.title,
+                    style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        fontSize: 16.pt,
+                        color: SKColor.ff000000),
+                  )
+                ],
+              ),
+              SizedBox(
+                width: 28.pt,
+                height: 28.pt,
+                child: Image(
+                  image: AssetImage(item.rightIcon),
+                ),
+              )
+            ],
+          ),
+        ));
   }
 
-  void startAnimation() {
-    if (_scrollController.position.maxScrollExtent == 0) {
-      SkLogUtils.logMessage('列表content size 为0');
-      return;
-    }
-
-    if (_scrollController.offset !=
-            _scrollController.position.minScrollExtent &&
-        _scrollController.offset !=
-            _scrollController.position.maxScrollExtent) {
-      return;
-    }
-
-    bool isTop =
-        _scrollController.offset == _scrollController.position.minScrollExtent;
-
-    Timer(Duration(microseconds: 200), () {
-      double _initOffset = isTop
-          ? _scrollController.position.maxScrollExtent
-          : _scrollController.position.minScrollExtent;
-      _scrollController.animateTo(_initOffset,
-          duration: const Duration(seconds: 5), curve: Curves.linear);
-    });
+  // Vip
+  Widget configVipWidget() {
+    return SizedBox(
+      width: 360.pt,
+      height: 76.pt,
+      child: Stack(
+        children: [
+          const Image(
+            image: AssetImage('images/mine_clean_member.png'),
+            fit: BoxFit.cover,
+          ),
+          Container(
+              margin: EdgeInsets.only(left: 12.pt, top: 16.pt),
+              child: Row(
+                children: [
+                  Image(
+                    image: const AssetImage('images/mine_member_mark.png'),
+                    width: 90.pt,
+                    height: 21.pt,
+                  ),
+                  SizedBox(
+                    width: 6.pt,
+                  ),
+                  Image(
+                    image: const AssetImage('images/mine_member_vip_mark.png'),
+                    width: 37.pt,
+                    height: 18.pt,
+                  )
+                ],
+              )),
+          Container(
+            margin: EdgeInsets.only(left: 12.pt, top: 41.pt),
+            child: Image(
+              image: AssetImage('images/mine_member_upgrade.png'),
+              width: 182.pt,
+              height: 20.pt,
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 18.pt, left: 228.pt),
+            child: Container(
+              // color: SKColor.randomColor(),
+              width: 120.pt,
+              height: 40.pt,
+              child: Stack(
+                children: [
+                  const Image(
+                      image: AssetImage('images/mine_member_login_bg.png')),
+                  GestureDetector(
+                    onTap: () {
+                      SkLogUtils.logMessage('立即开通');
+                    },
+                    child: SizedBox(
+                      height: 40.pt,
+                      // color: SKColor.randomColor(),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Image(
+                            image:
+                                const AssetImage('images/mine_member_open.png'),
+                            width: 63.pt,
+                            height: 15.5.pt,
+                          ),
+                          Image(
+                            image: const AssetImage(
+                                'images/mine_member_open_arrow.png'),
+                            width: 20.pt,
+                            height: 28.pt,
+                          )
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
+    );
   }
 }

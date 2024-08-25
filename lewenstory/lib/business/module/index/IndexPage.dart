@@ -1,6 +1,7 @@
 // ignore_for_file: no_logic_in_create_state
 import 'package:flutter/material.dart';
 import 'package:lewenstory/Base/Service/sk_color_utils.dart';
+import 'package:lewenstory/Base/Service/sk_event_bus_utils.dart';
 import 'package:lewenstory/Base/Service/sk_log_utils.dart';
 import 'package:lewenstory/Base/category/sk_number_ext.dart';
 import 'package:lewenstory/Base/widget/page_base_widget.dart';
@@ -44,6 +45,10 @@ class _IndexPage extends State<IndexPage> {
   void initState() {
     super.initState();
     _currentIndex = widget.currentIndex;
+
+    SKEventBusUtils.on<SKEventType>((event) {
+      SkLogUtils.logMessage('SKEventBusUtils : ${event.value}');
+    });
   }
 
   //

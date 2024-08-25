@@ -35,6 +35,8 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   webview_flutter: ^4.8.0
+  event_bus: ^2.0.0
+  provider: ^6.1.2
 
 dev_dependencies:
   flutter_test:
@@ -80,6 +82,29 @@ flutter:
     - images/clean_member_icon_ent.png
     - images/clean_member_close.png
     - images/clean_common_black_back.png
+    - images/mine_top_bg.png
+    - images/mine_icon_placehold.png
+    - images/mine_clean_member.png
+    - images/mine_member_mark.png
+    - images/mine_member_login_bg.png
+    - images/mine_member_open_arrow.png
+    - images/mine_member_upgrade.png
+    - images/mine_member_vip_mark.png
+    - images/mine_member_open.png
+    - images/mine_section_destroy.png
+    - images/mine_section_privacy.png
+    - images/mine_section_protocol.png
+    - images/mine_section_arrow.png
+    - images/mine_section_about.png
+    - images/mine_Section_custom_server.png
+    - images/cloud_top_bg.png
+    - images/cloud_login_bg.png
+    - images/cloud_login_arrow.png
+    - images/cloud_album_zone.png
+    - images/cloud_album_security.png
+    - images/cloud_album_recovery.png
+    - images/cloud_black_arrow.png
+    - images/cloud_vip_mark.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

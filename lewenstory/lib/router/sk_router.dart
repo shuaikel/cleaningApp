@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:lewenstory/Base/Service/sk_log_utils.dart';
 import 'package:lewenstory/Base/webview/webview_widget.dart';
+import 'package:lewenstory/business/module/cloud/CloudAlbumPage.dart';
 import 'package:lewenstory/business/module/index/onekeycleanerPage.dart';
 
 class SKRouterPath {
@@ -14,6 +15,8 @@ class SKRouterPath {
   static const String mine = "cleaner/mine";
   // 一键清理页面
   static const String onekeyCleaner = "cleaner/onekeyCleaner";
+  // 云空间详细页面
+  static const String cloudAlbumPage = "cleaner/cloud/album/index";
 }
 
 class SKRouterSchemeUtils {
@@ -43,6 +46,9 @@ class SkRouter {
     }
     if (url == SKRouterPath.onekeyCleaner) {
       return OnekeyCleanerPage(params);
+    }
+    if (url == SKRouterPath.cloudAlbumPage) {
+      return CloudAlbumPage(params);
     }
     return null;
   }
