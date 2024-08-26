@@ -41,6 +41,8 @@ class _MinePage extends State<MinePage> with TickerProviderStateMixin {
         "images/mine_section_arrow.png")
   ];
 
+  
+
   @override
   void initState() {
     super.initState();
@@ -100,7 +102,7 @@ class _MinePage extends State<MinePage> with TickerProviderStateMixin {
                   ],
                 ),
               ),
-              
+
               // 会员
               widget.configVipWidget(),
 
