@@ -22,6 +22,8 @@ class SKColor {
   //
   static const Color ff296eff = Color(0xff296eff);
   //
+  static const Color c33296eff = Color(0x33296eff);
+  //
   static const Color ff6d7278 = Color(0xff6d7278);
   //
   static const Color clear = Colors.transparent;

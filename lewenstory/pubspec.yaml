@@ -107,6 +107,8 @@ flutter:
     - images/cloud_black_arrow.png
     - images/cloud_vip_mark.png
     - images/launch_logo.png
+    - images/launch_guide_1.png
+    - images/launch_guide_2.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

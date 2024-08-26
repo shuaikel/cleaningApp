@@ -2,13 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:lewenstory/Base/Service/sk_color_utils.dart';
-import 'package:lewenstory/Base/Service/sk_log_utils.dart';
 import 'package:lewenstory/Base/Service/sk_screen_utils.dart';
 import 'package:lewenstory/Base/Service/storage/sk_share_preferences.dart';
 import 'package:lewenstory/Base/Service/storage/sk_storage_keys.dart';
 import 'package:lewenstory/Base/category/sk_number_ext.dart';
-import 'package:lewenstory/business/module/cloud/CloudPage.dart';
-import 'package:lewenstory/business/module/splash/contain_widget.dart';
+import 'package:lewenstory/business/module/guide/guide_widget.dart';
 import 'package:lewenstory/business/tabbar/tabbarController.dart';
 
 class SplashWidget extends StatefulWidget {
@@ -21,19 +19,26 @@ class SplashWidget extends StatefulWidget {
 }
 
 class _SplashWidgetState extends State<SplashWidget> {
-  var container = const Tabbarcontroller();
+  var tabbarWidget = const Tabbarcontroller();
+
+  var guideWidget = const GuideWidget();
 
   bool showLaunch = true;
 
+  bool isAlreadyShowGuide = false;
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     // 是否显示过引导页面
     SkSharePreferences()
         .getStorage(SkSharePreferencesKey.isShowGuide)
-        .then((value) => {SkLogUtils.logMessage('isShowGuide: $value')});
+        .then((value) => {
+              setState(() {
+                isAlreadyShowGuide = value ?? false;
+              })
+            });
   }
 
   @override
@@ -41,8 +46,12 @@ class _SplashWidgetState extends State<SplashWidget> {
     return Stack(
       children: [
         Offstage(
-          child: container,
-          offstage: showLaunch,
+          offstage: !isAlreadyShowGuide,
+          child: tabbarWidget,
+        ),
+        Offstage(
+          offstage: isAlreadyShowGuide,
+          child: guideWidget,
         ),
         //
         Offstage(
