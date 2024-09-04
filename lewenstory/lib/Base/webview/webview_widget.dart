@@ -1,5 +1,10 @@
 // Import for iOS features.
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:lewenstory/Base/Service/sk_log_utils.dart';
+import 'package:lewenstory/Base/webview/skBridge.dart';
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_android/webview_flutter_android.dart';
@@ -39,6 +44,8 @@ class _SKWebviewWidgetState extends State<SKWebviewWidget> {
     final WebViewController controller =
         WebViewController.fromPlatformCreationParams(params);
     // #enddocregion platform_features
+    // 清楚缓存
+    controller.clearCache();
 
     controller
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
@@ -83,15 +90,26 @@ Page resource error:
           },
         ),
       )
-      ..addJavaScriptChannel(
-        'Toaster',
-        onMessageReceived: (JavaScriptMessage message) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(message.message)),
-          );
-        },
-      )
-      ..loadRequest(Uri.parse('https://flutter.dev'));
+      ..addJavaScriptChannel('SKBridge',
+          onMessageReceived: (JavaScriptMessage message) async {
+        SkLogUtils.logMessage('skBridge ${message.message}');
+
+        // 这里解析出来真实的消息对象
+        final data = JsMessageData.fromJson(message.message);
+        // 获取js传入的回调函数名称，这里很像jsonp的实现
+        final callbackName = data.callback;
+        // 定义返回的结果
+        dynamic result = {};
+        // 执行flutter中定义的方法
+        if (data.type == 'hello') {
+          result = await hello(data.params["name"]);
+        }
+        // 判断是否有回调函数，有的话就回调结果给网页调用者
+        if (callbackName.isNotEmpty) {
+          // 最终还是通过JSON的方式返回给H5
+          _controller.runJavaScript("$callbackName(${jsonEncode(result)})");
+        }
+      });
 
     // #docregion platform_features
     if (controller.platform is AndroidWebViewController) {
@@ -101,6 +119,12 @@ Page resource error:
     }
     // #enddocregion platform_features
     _controller = controller;
+
+    if (widget.url.startsWith("http")) {
+      _controller.loadRequest(Uri.parse(widget.url));
+    } else if (widget.url.startsWith("html")) {
+      _controller.loadFlutterAsset(widget.url);
+    }
   }
 
   @override
@@ -108,5 +132,9 @@ Page resource error:
     return Scaffold(
       body: WebViewWidget(controller: _controller),
     );
+  }
+
+  FutureOr hello(String name) {
+    return {"hello": name};
   }
 }

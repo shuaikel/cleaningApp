@@ -49,4 +49,6 @@ class SKColor {
   static const Color ffff5d29 = Color(0xffff5d29);
   //
   static const Color a0ff6127 = Color(0xa0ff6127);
+  //
+  static const Color c00d8d8d8 = Color(0x00d8d8d8);
 }

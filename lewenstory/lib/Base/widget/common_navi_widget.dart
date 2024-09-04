@@ -32,9 +32,16 @@ class CommonNavigationBarWidget extends StatefulWidget {
 
 class _CommonNavigationBarWidgetState extends State<CommonNavigationBarWidget> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     double sw = SKScreenUtils.getInstance().screenWidth;
-    return SizedBox(
+    return Container(
+      color: SKColor.clear,
       width: sw,
       height: 44,
       child: Stack(
@@ -50,6 +57,7 @@ class _CommonNavigationBarWidgetState extends State<CommonNavigationBarWidget> {
                   child: Center(
                     child: Text(
                       widget.configM?.title ?? "",
+                      textAlign: TextAlign.center,
                       style: const TextStyle(
                         decoration: TextDecoration.none,
                         fontWeight: FontWeight.bold,
@@ -98,23 +106,22 @@ class _CommonNavigationBarWidgetState extends State<CommonNavigationBarWidget> {
                             widget.configM?.rightClickCallBackBlock!('回到参数');
                           },
                           //TODO: 图片兼容网络图片
-                          child:
-                              (widget.configM?.rightTitle?.isNotEmpty ?? false)
-                                  ? Text(
-                                      widget.configM?.rightTitle ?? "",
-                                      style: TextStyle(
-                                        decoration: TextDecoration.none,
-                                        fontSize: 16.pt,
-                                        fontWeight: FontWeight.normal,
-                                        color: SKColor.ff666666,
-                                      ),
-                                    )
-                                  : Image(
-                                      image: AssetImage(
-                                          widget.configM?.rightIconName ?? ""),
-                                      width: 28,
-                                      height: 28,
-                                    ),
+                          child: ((widget.configM?.rightTitle?.length ?? 0) > 0)
+                              ? Text(
+                                  widget.configM?.rightTitle ?? "",
+                                  style: TextStyle(
+                                    decoration: TextDecoration.none,
+                                    fontSize: 16.pt,
+                                    fontWeight: FontWeight.normal,
+                                    color: SKColor.ff666666,
+                                  ),
+                                )
+                              : Image(
+                                  image: AssetImage(
+                                      widget.configM?.rightIconName ?? ""),
+                                  width: 28,
+                                  height: 28,
+                                ),
                         ),
                       ))),
             ],

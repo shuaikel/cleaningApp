@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Flutter HTML</title>
+	<script type="text/javascript">
+		
+		function callFlutter(argument) {
+			// body...
+			window.alert('123');
+			// window.flutter_inappwebview.callHandler('myChannel', 'Hello from JavaScript!');
+			SKBridge.postMessage('Hello',{"a":1,"b":2});
+		}
+
+	</script>
+
+</head>
+<body>
+
+		<div style="height: 44pt;background-color: blue;margin-top: 40pt;",>
+			<button onclick="callFlutter()" style="color: 0x999999;height: 44pt;border-radius: 22pt;">点击调用Flutter页面</button>
+		</div>
+</body>
+</html>
+

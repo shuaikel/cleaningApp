@@ -46,7 +46,7 @@ class _CloudPage extends State<CloudPage> {
               child: Stack(
                 children: [
                   Image(
-                    image: AssetImage('images/cloud_top_bg.png'),
+                    image: const AssetImage('images/cloud_top_bg.png'),
                     width: sw,
                     height: 320.pt,
                   ),
@@ -150,6 +150,7 @@ class _CloudPage extends State<CloudPage> {
 
                         // 加密空间
                         widget.configCellWith(
+                            context,
                             'images/cloud_album_security.png',
                             '加密空间',
                             'images/cloud_vip_mark.png',
@@ -159,6 +160,7 @@ class _CloudPage extends State<CloudPage> {
 
                         // 云相册
                         widget.configCellWith(
+                            context,
                             'images/cloud_album_zone.png',
                             '云相册',
                             '',
@@ -179,6 +181,7 @@ class _CloudPage extends State<CloudPage> {
 
                         // 云回收站
                         widget.configCellWith(
+                            context,
                             'images/cloud_album_recovery.png',
                             '云回收站',
                             '',
@@ -198,11 +201,15 @@ class _CloudPage extends State<CloudPage> {
 }
 
 extension CloudPageExt on CloudPage {
-  Widget configCellWith(String leftIcon, String title, String imageExt,
-      String subTitle, String arrow, EdgeInsets margin) {
+  Widget configCellWith(BuildContext context, String leftIcon, String title,
+      String imageExt, String subTitle, String arrow, EdgeInsets margin) {
     return GestureDetector(
       onTap: () {
-        SkLogUtils.logMessage('点击响应: $title');
+        // SkLogUtils.logMessage('点击响应: $title'),
+        if (title == "云相册") {
+          SkRouter.pushWithContext(context, SKRouterPath.cloudAlbumPage, {});
+          return;
+        }
       },
       child: Container(
         margin: margin,

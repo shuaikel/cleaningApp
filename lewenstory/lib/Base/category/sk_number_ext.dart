@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:lewenstory/Base/Service/sk_screen_utils.dart';
 
 extension IntExt on int {
@@ -28,6 +30,13 @@ extension StringExt on String {
   int get toInt {
     return int.parse(this);
   }
+
+  Uint8List toUint8List() {
+  final List<int> codeUnits = this.codeUnits;
+  final unit8List = Uint8List.fromList(codeUnits);
+  return unit8List;
+}
+
 }
 
 // extension CustomList<T> on List<T>{

@@ -7,6 +7,7 @@ import 'package:lewenstory/Base/Service/sk_log_utils.dart';
 import 'package:lewenstory/Base/Service/sk_screen_utils.dart';
 import 'package:lewenstory/Base/category/sk_number_ext.dart';
 import 'package:lewenstory/Base/widget/page_base_widget.dart';
+import 'package:lewenstory/router/sk_router.dart';
 
 class MineSectionItemConfigM {
   String icon;
@@ -40,8 +41,6 @@ class _MinePage extends State<MinePage> with TickerProviderStateMixin {
     MineSectionItemConfigM("images/mine_section_about.png", "关于我们",
         "images/mine_section_arrow.png")
   ];
-
-  
 
   @override
   void initState() {
@@ -126,7 +125,7 @@ class _MinePage extends State<MinePage> with TickerProviderStateMixin {
                 ),
                 child: Column(
                   children: sectionList.map((item) {
-                    return widget.configSectionItem(item);
+                    return widget.configSectionItem(context, item);
                   }).toList(),
                 ),
               ),
@@ -161,10 +160,14 @@ class _MinePage extends State<MinePage> with TickerProviderStateMixin {
 
 extension MinePageExt on MinePage {
   // section item
-  Widget configSectionItem(MineSectionItemConfigM item) {
+  Widget configSectionItem(BuildContext context, MineSectionItemConfigM item) {
     return GestureDetector(
         onTap: () {
           SkLogUtils.logMessage('点击: ${item.title}');
+          if (item.title == "关于我们") {
+            // SkRouter.pushWithContext(context, "https://wwww.baidu.com", "");
+            SkRouter.pushWithContext(context, "html/flutter_test.html", "");
+          }
         },
         child: Container(
           height: 52.pt,

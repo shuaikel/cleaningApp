@@ -41,7 +41,8 @@ class SkRouter {
   //路径-widget映射
   static Widget? generateRouter(String url, Object params) {
     // 是否是网页
-    if (url.startsWith("http")) {
+    if (url.startsWith("http") || url.startsWith("html")) {
+      SkLogUtils.logMessage('url info: $url');
       return SKWebviewWidget(url: url, params: params);
     }
     if (url == SKRouterPath.onekeyCleaner) {
