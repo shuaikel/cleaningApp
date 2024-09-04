@@ -1,9 +1,12 @@
 // ignore_for_file: file_names
 
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:lewenstory/Base/Service/sk_log_utils.dart';
 import 'package:lewenstory/Base/webview/webview_widget.dart';
 import 'package:lewenstory/business/module/cloud/CloudAlbumPage.dart';
+import 'package:lewenstory/business/module/cloud/CloudLocalAlbumPage.dart';
 import 'package:lewenstory/business/module/index/onekeycleanerPage.dart';
 
 class SKRouterPath {
@@ -17,6 +20,8 @@ class SKRouterPath {
   static const String onekeyCleaner = "cleaner/onekeyCleaner";
   // 云空间详细页面
   static const String cloudAlbumPage = "cleaner/cloud/album/index";
+  // 云空间导入本地相册页面
+  static const String cloudLocalAlbumPage = "cleaner/cloud/album/local";
 }
 
 class SKRouterSchemeUtils {
@@ -51,6 +56,9 @@ class SkRouter {
     if (url == SKRouterPath.cloudAlbumPage) {
       return CloudAlbumPage(params);
     }
+    if (url == SKRouterPath.cloudLocalAlbumPage) {
+      return CloudLocalAlbumPage(params);
+    }
     return null;
   }
 
@@ -83,6 +91,23 @@ class SkRouter {
         newRoute: MaterialPageRoute(builder: (context) {
           return newPageRouter!;
         }));
+  }
+
+  // present
+  static void presentWithContext(
+      BuildContext context, String url, dynamic params, callbackFunc) {
+    Widget? matchW = generateRouter(url, params);
+    SkLogUtils.logMessage('presentWithContext:url = $url' + "params: $params");
+    if (matchW == null) {
+      debugPrint('路由_路径错误_url:$url');
+    }
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            fullscreenDialog: true,
+            builder: (context) {
+              return matchW!;
+            }));
   }
 
   // remove

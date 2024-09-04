@@ -94,21 +94,21 @@ Page resource error:
           onMessageReceived: (JavaScriptMessage message) async {
         SkLogUtils.logMessage('skBridge ${message.message}');
 
-        // 这里解析出来真实的消息对象
-        final data = JsMessageData.fromJson(message.message);
-        // 获取js传入的回调函数名称，这里很像jsonp的实现
-        final callbackName = data.callback;
-        // 定义返回的结果
-        dynamic result = {};
-        // 执行flutter中定义的方法
-        if (data.type == 'hello') {
-          result = await hello(data.params["name"]);
-        }
-        // 判断是否有回调函数，有的话就回调结果给网页调用者
-        if (callbackName.isNotEmpty) {
-          // 最终还是通过JSON的方式返回给H5
-          _controller.runJavaScript("$callbackName(${jsonEncode(result)})");
-        }
+        // // 这里解析出来真实的消息对象
+        // final data = JsMessageData.fromJson(message.message);
+        // // 获取js传入的回调函数名称，这里很像jsonp的实现
+        // final callbackName = data.callback;
+        // // 定义返回的结果
+        // dynamic result = {};
+        // // 执行flutter中定义的方法
+        // if (data.type == 'hello') {
+        //   result = await hello(data.params["name"]);
+        // }
+        // // 判断是否有回调函数，有的话就回调结果给网页调用者
+        // if (callbackName.isNotEmpty) {
+        //   // 最终还是通过JSON的方式返回给H5
+        //   _controller.runJavaScript("$callbackName(${jsonEncode(result)})");
+        // }
       });
 
     // #docregion platform_features

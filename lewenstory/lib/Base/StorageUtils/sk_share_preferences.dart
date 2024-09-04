@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:lewenstory/Base/Service/storage/sk_storage_keys.dart';
+import 'package:lewenstory/Base/StorageUtils/sk_storage_keys.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SkSharePreferences {

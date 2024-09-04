@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>是否允许App访问您的媒体资料库</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>允许访问您的照片图库后，我们才可读取您的照片视频等内容，并通过算法计算相关内容的质量，主要用于相册清理、一键清理等功能。</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>允许访问您的照片图库后，我们才可读取您的照片视频等内容，并通过算法计算相关内容的质量，主要用于相册清理、一键清理等功能。</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>

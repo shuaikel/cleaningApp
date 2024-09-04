@@ -113,6 +113,9 @@ flutter:
     - html/flutter_test.html
     - images/cloud_navi_right.png
     - images/cloud_album_empty.png
+    - images/cloud_album_add.png
+    - images/cloud_album_local.png
+    - images/cloud_local_album_close.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

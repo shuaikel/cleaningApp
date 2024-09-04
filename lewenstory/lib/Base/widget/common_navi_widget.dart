@@ -7,6 +7,7 @@ import 'package:lewenstory/router/sk_router.dart';
 
 class CommonNavigationBarConfigM {
   final String? title;
+  final String? leftIconName;
   final Function leftClickCallBackBlock;
   final Function? rightClickCallBackBlock;
   final String? rightTitle;
@@ -14,6 +15,7 @@ class CommonNavigationBarConfigM {
 
   CommonNavigationBarConfigM(
       {this.title,
+      this.leftIconName,
       required this.leftClickCallBackBlock,
       this.rightClickCallBackBlock,
       this.rightTitle,
@@ -33,7 +35,6 @@ class CommonNavigationBarWidget extends StatefulWidget {
 class _CommonNavigationBarWidgetState extends State<CommonNavigationBarWidget> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -79,8 +80,9 @@ class _CommonNavigationBarWidgetState extends State<CommonNavigationBarWidget> {
                 },
                 child: Container(
                   margin: EdgeInsets.only(left: 8.pt),
-                  child: const Image(
-                    image: AssetImage('images/clean_common_black_back.png'),
+                  child: Image(
+                    image: AssetImage(widget.configM?.leftIconName ??
+                        "images/clean_common_black_back.png"),
                     width: 28,
                     height: 28,
                     fit: BoxFit.cover,

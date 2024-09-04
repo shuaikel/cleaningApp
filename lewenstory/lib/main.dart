@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lewenstory/Base/Service/sk_color_utils.dart';
 import 'package:lewenstory/Base/Service/sk_log_utils.dart';
-import 'package:lewenstory/Base/Service/storage/sk_share_preferences.dart';
+import 'package:lewenstory/Base/StorageUtils/sk_share_preferences.dart';
 import 'package:lewenstory/business/module/splash/splash_widget.dart';
 import 'business/tabbar/tabbarController.dart';
 
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
     //     ),
     //   );
     // }
-    
+
     // 三方SDK初始化
     _initAsyncSdk();
 

@@ -1,4 +1,3 @@
-
 enum SkSharePreferencesKey {
   /// 测试eventBus
   isShowGuide('isShowGuide');
